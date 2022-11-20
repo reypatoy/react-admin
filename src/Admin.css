@@ -156,6 +156,31 @@
     background: #70E1F5;
 }
 
+.scroll-manage-container{
+    overflow-y: scroll;
+    max-height: 400px;
+}
+.notifBtn-send{
+    background: #419BEE;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.check-label{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
+}
+.check-label span{
+    margin-right: 10px;
+}
+.notifBtn-send:hover{
+    background: #74adb7;
+}
 .notifContainer {
     display: flex;
     flex-direction: column;

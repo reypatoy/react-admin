@@ -6,20 +6,25 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import { db } from "../../firebase-config";
-import { collection,getDocs, query } from "firebase/firestore";
+import TimePicker from 'react-time-picker';
 import axios from "axios";
+import { collection,query, where, onSnapshot, getDocs, } from "firebase/firestore";
 // const nexmo = require('nexmo')
 
 function Notifications() {
 
     const [notifications, setNotifications] = useState('');
+    const [notificationId, setNotificationId] = useState('');
     const user = useSelector(state => state.user);
     const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedTime, setSelectedTime] = useState(null);
     const [selectedDateTo, setSelectedDateTo] = useState(null);
     const [isSend, setIsSend] = useState(false);
     // const nexmo = require('nexmo');
     const { createCustomerNotification } = UserAuth();
+    const [value, onChange] = useState('10:00');
+    const [customers, setCustomers] = useState([]);
     
     useEffect(() => {
         if(user.isLogin && user.type === 'Admin'){
@@ -27,6 +32,7 @@ function Notifications() {
             const querySnapshot = getDocs(q);
             querySnapshot.then((snapshot) => {
                 snapshot.forEach((doc) => {
+                    setNotificationId(doc.id);
                     setIsSend(doc.data().isSend)
                     setSelectedDate(new Date(doc.data().dateFrom));
                     setSelectedDateTo(new Date(doc.data().dateTo));
@@ -38,18 +44,22 @@ function Notifications() {
             navigate('/login/');
         }
     }, []);
+
+    const q = query(collection(db, "customers"), where("approve", "==", true));
+    onSnapshot(q, (query) => {
+        const allData = [];
+        query.forEach((doc) => {
+                allData.push(doc);
+        });
+        setCustomers(allData);
+    });
+
     const sendNotification = async () => {
         if(!isSend){
             await createCustomerNotification(notifications, moment(selectedDate).format("MM-DD-YYYY"),
-                 moment(selectedDateTo).format("MM-DD-YYYY"))
-                 const response = await axios.post('https://water-bill-api.herokuapp.com/api/',{
-                    "to": '+639078721057',
-                    "text": `Notice: Water Interuption from ${selectedDate} until ${selectedDateTo}`,
-                    });
-                if(response.status === 200){
-                    alert("Notification Sent");
-                }
-            alert('Notive Send Successfully!!!')
+            moment(selectedDateTo).format("MM-DD-YYYY"), notificationId)
+            alert("Notification Saved");
+            setIsSend(true);
         }
     }
     const setNotice = (e) => {
@@ -63,6 +73,14 @@ function Notifications() {
     const setDateTo = (e) => {
         setSelectedDateTo(e);
         setIsSend(false);
+    }
+    const send = async (number, name) => {
+        console.log(number);
+        const response = await axios.post('https://new-sms-api.herokuapp.com/https://water-bill-api.herokuapp.com/api/',{
+            "to":  number,
+            "text": `Notice: Dear Mr/Ms ${name}, ${notifications} from ${selectedDate} until ${selectedDateTo}`,
+            });
+            alert("Notification Sent");
     }
     return (
         <div className="adminContainer">
@@ -83,7 +101,7 @@ function Notifications() {
                         filterDate={date => date.getDay() !== 6 && date.getDay() !== 0} // weekends cancel
                         showYearDropdown // year show and scrolldown alos
                         scrollableYearDropdown
-                    />
+                    /> 
                     <label>Date To: </label>
                     <DatePicker
                         selected={selectedDateTo}
@@ -93,13 +111,39 @@ function Notifications() {
                         showYearDropdown // year show and scrolldown alos
                         scrollableYearDropdown
                     />
+                  <div className='check-label'>
+                    <span>isSave: </span>
+                    <input type={'checkbox'} readOnly checked={isSend}/>
+                  </div>
+                  <button className="notifBtn-send" onClick={sendNotification}>Send</button>
                 </div>
-                <div className="notif-label">
-                    <label>Send</label>
-                    <input type="checkbox" checked={isSend} disabled className="notif-checkbox" />
-                </div>
-                <div onClick={sendNotification} className="statButtons">
-                    <button>Send</button>
+                <div className="manageContainer scroll-manage-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Purok</th>
+                                <th>Email</th>
+                                <th>Number</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {customers && customers.map((item, i) => (
+                            <tr key={i} >
+                                <td>{item.data().id.substring(1, 6)}</td>
+                                <td>{item.data().fullname}</td>
+                                <td>{item.data().address}</td>
+                                <td>{item.data().email}</td>
+                                <td>{item.data().contact}</td>
+                                <td>
+                                    <button onClick={() => send(item.data().contact, item.data().fullname)} className="view_more">Send</button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

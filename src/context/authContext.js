@@ -8,7 +8,9 @@ import {
     EmailAuthProvider,
 } from "firebase/auth";
 import { auth, db } from "../firebase-config";
-import { addDoc, collection, serverTimestamp, doc, setDoc, deleteDoc } from "firebase/firestore";
+import { addDoc, collection, 
+    serverTimestamp, doc, setDoc, 
+    deleteDoc, query, where, getDocs } from "firebase/firestore";
 
 const UserContext = createContext();
 
@@ -132,17 +134,29 @@ export const AuthContextProvider = ({children}) => {
         return deleteDoc(doc(db, "appointments", appointmentId));
    } 
 
-   const createCustomerNotification = (notice, dateFrom, dateTo) => {
-    const notificationCollectionRef = collection(db, 'notifications');
-    return addDoc(notificationCollectionRef, {
-      notice: notice,
-      dateFrom:dateFrom,
-      dateTo:dateTo,
-      isSend : true,
-      createdAt: serverTimestamp(),
-  });
-} 
-
+   const createCustomerNotification = (notice, dateFrom, dateTo, id) => {
+    const notificationCollectionRef = doc(db, 'notifications', id);
+        const data = {
+            notice: notice,
+            dateFrom:dateFrom,
+            dateTo:dateTo,
+            isSend : true,
+            createdAt: serverTimestamp(),
+            };
+        setDoc(notificationCollectionRef, data, { merge:true })
+        } 
+    const deleteCustomer = (customerId, appointmentId) => {
+        const q = query(collection(db, "appointments"), where("customerId", "==", appointmentId));
+        let appointments = [];
+        const snapshot = getDocs(q);
+            snapshot.forEach((doc) => {
+               appointments.push(doc.id);
+            });
+            appointments.forEach((id) => {
+                deleteDoc(doc(db, "appointments", id));
+            });
+        return deleteDoc(doc(db, "customers", customerId));
+        }
     return (
         <UserContext.Provider value={{
                                         createUser, createUserToFirestore, 
@@ -150,7 +164,8 @@ export const AuthContextProvider = ({children}) => {
                                         createCustomerToFirestore, updateCustomerProfile,
                                         approveCustomer, saveCustomerBill,createCustomerBill,
                                         createCustomerAppointment, deleteCustomerAppointment,
-                                        setDoneCustomerAppointment, createCustomerNotification
+                                        setDoneCustomerAppointment, createCustomerNotification,
+                                        deleteCustomer
                                         }}>
             {children}
         </UserContext.Provider>

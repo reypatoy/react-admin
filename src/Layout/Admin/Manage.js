@@ -1,8 +1,9 @@
 import { db } from "../../firebase-config";
-import { collection,getDocs, query, where, } from "firebase/firestore";
+import { collection,getDocs, query, where,onSnapshot } from "firebase/firestore";
 import { useState, useEffect} from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { UserAuth } from "../../context/authContext";
 
 function Manage() {
 
@@ -14,7 +15,7 @@ function Manage() {
     const [isViewMoreModal, setIsViewMoreModal] = useState(false);
     const [fullname, setFullname] = useState('');
     const navigate = useNavigate();
-
+    const { deleteCustomer } = UserAuth();
     useEffect( () => {
         if(!user.isLogin){
             navigate('/login/');
@@ -23,21 +24,31 @@ function Manage() {
                     navigate('/login/');
         }
         if(user.isLogin && user.type === "Admin"){
-            getCustomer();
+            // getCustomer();
             getCustomerBills();
         }
     },
     []);
-    const getCustomer = () => {
-         const q = query(collection(db, "customers"), where("approve", "==", true));
-         const querySnapshot = getDocs(q);
-         querySnapshot.then((snapshot) => {
-             snapshot.forEach((doc) => {
-                setData((data) => [...data, doc]);
-                setFilterData((data) => [...data, doc]);
-             });
+    // const getCustomer = () => {
+    //      const q = query(collection(db, "customers"), where("approve", "==", true));
+    //      const querySnapshot = getDocs(q);
+    //      querySnapshot.then((snapshot) => {
+    //          snapshot.forEach((doc) => {
+    //             setData((data) => [...data, doc]);
+    //             setFilterData((data) => [...data, doc]);
+    //          });
+    //      });
+    //  }
+     const q = query(collection(db, "customers"), where("approve", "==", true));
+     onSnapshot(q, (query) => {
+        let allData = [];
+         query.forEach((doc) => {
+                 allData.push(doc);
          });
-     }
+         setData(allData);
+          setFilterData(allData);
+     });
+
     const getCustomerBills = async () => {
         const billsRef = collection(db, 'bills') // create collection reference
     
@@ -56,6 +67,11 @@ function Manage() {
     }
     const closeModal = () => {
         setIsViewMoreModal(false);
+    }
+
+    const deleteUser = async (id, appointmentId) => {
+        await deleteCustomer(id, appointmentId);
+        alert("Customer Deleted");
     }
     return (
         <div className="manageContainer">
@@ -80,6 +96,7 @@ function Manage() {
                         <td>{item.data().contact}</td>
                         <td>
                             <button onClick={() => viewMore(item.data().id, item.data().fullname)} className="view_more">view more</button>
+                            <button onClick={() => deleteUser(item.id, item.data().id)} className="view_more">delete</button>
                         </td>
                     </tr>
                 ))}

@@ -7,12 +7,14 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import axios from "axios";
 
 function Billing() {
 
     const [data, setData] = useState([]);
     const [filterData, setFilterData] = useState([]);
     const [billCustomerName, setBillCustomerName] = useState('');
+    const [billCustomerEmail, setBillCustomerEmail] = useState('');
     const [addCustomerBill, setAddCustomerBill] = useState(0);
     const [meterReading, setMeterReading] = useState(0);
     const [billCustomerID, setBillCustomerID] = useState('');
@@ -67,12 +69,13 @@ function Billing() {
         return diffInMs / (1000 * 60 * 60 * 24);
       }
 
-    const payBill = async (customerId, date, bill, reading, itemId, name) => { 
+    const payBill = async (customerId, date, bill, reading, itemId, name, email) => { 
         if(bill && bill !== 0){
             setIsFilter(false);
             setIsPayModal(true);
             setIsBillModal(false);
             setBillCustomerName(name);
+            setBillCustomerEmail(email);
             setBillCustomerID(customerId);
             setItem(itemId);
             setSelectedDate(date);
@@ -96,7 +99,17 @@ function Billing() {
     const savePayBill = async () => {
         await createCustomerBill(billCustomerID, selectedDate, addCustomerBill, meterReading, totalPayable, penalty);
            await  saveCustomerBill(item, null, null, null);
-
+           const response = await axios.post('https://new-sms-api.herokuapp.com/https://water-bill-api.herokuapp.com/api/emails/',
+                {
+                "to":billCustomerEmail,
+                "name":billCustomerName,
+                "date":selectedDate,
+                "bill":addCustomerBill,
+                "reading":meterReading,
+                "payed":totalPayable,
+                "penalty":penalty
+                }
+              );
             alert("Bill Paid Successfully");
             setIsFilter(false);
             setIsBillModal(false);
@@ -106,7 +119,9 @@ function Billing() {
             setAddCustomerBill(0);
             setSelectedDate(null);
             setBillCustomerName('');
+            setBillCustomerEmail('');
             setItem('');
+
     }
     const saveAddBill = () => {
         setIsFilter(false);
@@ -270,7 +285,7 @@ function Billing() {
                         }
                         
                         <td>
-                            <button onClick={() => payBill(item.data().id,item.data().dueDate, item.data().bill, item.data().meterReading, item.id, item.data().fullname)}>
+                            <button onClick={() => payBill(item.data().id,item.data().dueDate, item.data().bill, item.data().meterReading, item.id, item.data().fullname, item.data().email)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M0 112.5V422.3c0 18 10.1 35 27 41.3c87 32.5 174 10.3 261-11.9c79.8-20.3 159.6-40.7 239.3-18.9c23 6.3 48.7-9.5 48.7-33.4V89.7c0-18-10.1-35-27-41.3C462 15.9 375 38.1 288 60.3C208.2 80.6 128.4 100.9 48.7 79.1C25.6 72.8 0 88.6 0 112.5zM288 352c-44.2 0-80-43-80-96s35.8-96 80-96s80 43 80 96s-35.8 96-80 96zM64 352c35.3 0 64 28.7 64 64H64V352zm64-208c0 35.3-28.7 64-64 64V144h64zM512 304v64H448c0-35.3 28.7-64 64-64zM448 96h64v64c-35.3 0-64-28.7-64-64z"/></svg>
                                 <span>Pay</span>
                             </button>
