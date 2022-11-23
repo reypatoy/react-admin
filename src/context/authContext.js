@@ -10,7 +10,7 @@ import {
 import { auth, db } from "../firebase-config";
 import { addDoc, collection, 
     serverTimestamp, doc, setDoc, 
-    deleteDoc, query, where, getDocs } from "firebase/firestore";
+    deleteDoc, query, where, getDocs, onSnapshot } from "firebase/firestore";
 
 const UserContext = createContext();
 
@@ -96,13 +96,16 @@ export const AuthContextProvider = ({children}) => {
             setDoc(docRef, data, { merge:true })
     }
 
-    const createCustomerBill = (customerId, date, bill, reading, totalPayable, penalty) => {
+    const createCustomerBill = (customerId, date, bill, reading, totalPayable, penalty,address, contact, billCustomerName) => {
         const billCollectionRef = collection(db, 'bills');
         return addDoc(billCollectionRef, {
           customerId: customerId,
           date: date,
           bill: bill,
           reading: reading,
+          address: address, 
+          contact: contact, 
+          customerName: billCustomerName,
           totalPayable: totalPayable,
         penalty: penalty,
           createdAt: serverTimestamp(),
@@ -145,18 +148,25 @@ export const AuthContextProvider = ({children}) => {
             };
         setDoc(notificationCollectionRef, data, { merge:true })
         } 
-    const deleteCustomer = (customerId, appointmentId) => {
-        const q = query(collection(db, "appointments"), where("customerId", "==", appointmentId));
+    const deleteCustomer = async (customerId, appointmentId) => {
+        const q = collection(db, "appointments");
         let appointments = [];
-        const snapshot = getDocs(q);
-            snapshot.forEach((doc) => {
-               appointments.push(doc.id);
-            });
-            appointments.forEach((id) => {
-                deleteDoc(doc(db, "appointments", id));
-            });
-        return deleteDoc(doc(db, "customers", customerId));
+        await onSnapshot(q, async (query) => {
+             await query.forEach((doc) => {
+                console.log(doc.id)
+                if(doc.data().customerId === appointmentId){
+                    appointments.push(doc.id);
+                }
+             });
+             appointments.forEach(async (id) => {
+                await deleteDoc(doc(db, "appointments", id));
+         });
+         console.log(appointments);
+
+            })
+            return deleteDoc(doc(db, "customers", customerId));
         }
+        
     return (
         <UserContext.Provider value={{
                                         createUser, createUserToFirestore, 

@@ -347,50 +347,38 @@
 .reportsContainer {
     margin: 0 auto;
     width: 90%;
-    display: flex;
     padding: 20px;
 }
 
-.reportLeft {
-    width: 40%;
+.title {
     padding: 20px;
-}
-
-.clockView {
+    text-align: center;
     display: flex;
-    flex-direction: column;
-    margin: 40px auto;
-    background: black;
-    color: white;
-    padding: 20px;
-    width: 250px;
-    border-radius: 15px;
-    justify-content: center;
+    flex-direction: row;
+    height: 60px;
     align-items: center;
-
+    justify-content: space-between;
 }
-
-.reportRight {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+.title h1{
+    margin-right: 20px;
 }
-
-.reportRight table {
-    background: white;
+.title select{
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+    margin-right: 20px;
 }
-
-.reportRight h1 {
-    text-align: center;
-    margin-top: 20px;
+.title button{
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #419BEE;
+    color: white;
+    border: none;
 }
-
-.reportRight table tbody tr td {
-    padding: 15px 20px;
-    text-align: center;
+.title button:hover{
+    background: #74adb7;
 }
-
 .overdue {
     background: #FFBE83;
 }
@@ -399,6 +387,56 @@
 }
 .pending {
     background: #0DBD09;
+}
+.reports{
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
+.reports .report{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+}
+.reports table{
+    padding: 20px;
+    width: 100%;
+}
+.reports table tr{
+    border-radius: 10px;
+}
+.reports table tr td{
+    text-align: center;
+    border: solid #656363 1px;
+}
+.reports table tr th{
+    text-align: center;
+    border: solid #656363 1px;
+}
+.print-container{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+.print-container button{
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #419BEE;
+    color: white;
+    border: none;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 50px;
+}
+.print-container button:hover{
+    background: #74adb7;
 }
 
 .billContainer {

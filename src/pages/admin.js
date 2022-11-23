@@ -7,6 +7,7 @@ import Profile from "../Layout/Admin/Profile";
 // import Logo from '../images/navLogo.png';
 import '../Admin.css';
 import Approval from "../Layout/Admin/Approval";
+import Report from "../Layout/Admin/Report";
 import BillDetails from "../Layout/Admin/BillDetails";
 import Manage from "../Layout/Admin/Manage";
 import brgyLogo from '../brgyLogo.png'
@@ -89,12 +90,19 @@ function Admin() {
                         </li>
                     </Link>
                     <Link to={'/notifications'}>
-                    <li>
-                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M25 40.625C27.2917 40.625 29.1667 38.75 29.1667 36.4583H20.8334C20.8334 37.5634 21.2724 38.6232 22.0538 39.4046C22.8352 40.186 23.895 40.625 25 40.625ZM37.5 28.125V17.7083C37.5 11.3125 34.0834 5.95833 28.125 4.54167V3.125C28.125 1.39583 26.7292 0 25 0C23.2709 0 21.875 1.39583 21.875 3.125V4.54167C15.8959 5.95833 12.5 11.2917 12.5 17.7083V28.125L8.33337 32.2917V34.375H41.6667V32.2917L37.5 28.125Z" fill="black"/>
-                        </svg>   
-                        <span>Notifications</span>                     
-                    </li>
+                        <li>
+                            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M25 40.625C27.2917 40.625 29.1667 38.75 29.1667 36.4583H20.8334C20.8334 37.5634 21.2724 38.6232 22.0538 39.4046C22.8352 40.186 23.895 40.625 25 40.625ZM37.5 28.125V17.7083C37.5 11.3125 34.0834 5.95833 28.125 4.54167V3.125C28.125 1.39583 26.7292 0 25 0C23.2709 0 21.875 1.39583 21.875 3.125V4.54167C15.8959 5.95833 12.5 11.2917 12.5 17.7083V28.125L8.33337 32.2917V34.375H41.6667V32.2917L37.5 28.125Z" fill="black"/>
+                            </svg>   
+                            <span>Notifications</span>                     
+                        </li>
+                    </Link>
+                    <Link to={'/reports'}>
+                        <li>
+                        <svg width="24" height="24" strokeWidth="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M9 21H15M9 21V16M9 21H3.6C3.26863 21 3 20.7314 3 20.4V16.6C3 16.2686 3.26863 16 3.6 16H9M15 21V9M15 21H20.4C20.7314 21 21 20.7314 21 20.4V3.6C21 3.26863 20.7314 3 20.4 3H15.6C15.2686 3 15 3.26863 15 3.6V9M15 9H9.6C9.26863 9 9 9.26863 9 9.6V16" stroke="currentColor" strokeWidth="1.5"/> 
+                        </svg>  
+                            <span>Reports</span>                     
+                        </li>
                     </Link>
                     
                 </ul>
@@ -106,6 +114,7 @@ function Admin() {
                     <Route exact path='/billing' element={<Billing />}/>
                     <Route exact path='/notifications' element={<Notification />}/>
                     <Route exact path="/profile" element={<Profile />}/>
+                    <Route exact path="/reports" element={<Report />}/>
                     <Route exact path='/approval' element={<Approval/>}/>
                     <Route exact path='/bill-details' element={<BillDetails/>}/>
                     <Route exact path='/manage' element={<Manage />}/>

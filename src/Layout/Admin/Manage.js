@@ -70,7 +70,7 @@ function Manage() {
     }
 
     const deleteUser = async (id, appointmentId) => {
-        await deleteCustomer(id, appointmentId);
+        await deleteCustomer(id, appointmentId);;
         alert("Customer Deleted");
     }
     return (
