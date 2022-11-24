@@ -75,7 +75,7 @@ function Notifications() {
     }
     const send = async (number, name) => {
         console.log(number);
-        const response = await axios.post('https://new-sms-api.herokuapp.com/https://water-bill-api.herokuapp.com/api/sms/',{
+        const response = await axios.post('https://water-bill-api.herokuapp.com/api/sms/',{
             "recipient":  number,
             "message": `Notice: Dear Mr/Ms ${name}, ${notifications}`,
             });

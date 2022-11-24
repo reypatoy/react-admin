@@ -103,7 +103,7 @@ function Billing() {
     const savePayBill = async () => {
         await createCustomerBill(billCustomerID, selectedDate, addCustomerBill, meterReading, totalPayable, penalty, address, contact, billCustomerName);
            await  saveCustomerBill(item, null, null, null);
-           const response = await axios.post('https://new-sms-api.herokuapp.com/https://water-bill-api.herokuapp.com/api/emails/',
+           const response = await axios.post('https://water-bill-api.herokuapp.com/api/emails/',
                 {
                 "to":billCustomerEmail,
                 "name":billCustomerName,
