@@ -5,6 +5,7 @@ import { db } from "../../firebase-config";
 import { collection, onSnapshot } from "firebase/firestore";
 import { UserAuth } from "../../context/authContext";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Admins() {
 
@@ -18,6 +19,7 @@ function Admins() {
     const [allAppointments, setAllAppointments] = useState([]);
     const [personalAppointments, setPersonalAppointments] = useState([]);
     const user = useSelector(state => state.user);
+    const navigate = useNavigate();
     const { setDoneCustomerAppointment } = UserAuth();
 
 
@@ -32,6 +34,12 @@ function Admins() {
 
 
     useEffect(() => {
+        if(!user.isLogin){
+            navigate('/login');
+        }
+        else if(user.type !== "Admin") {
+                    navigate('/login');
+        }
     },[])
 
     const q = collection(db, "appointments");
@@ -63,7 +71,7 @@ function Admins() {
             
             <div className="dashHead">            
                 <h2>Dashboard</h2> 
-                <Link to="/manage"><button>Manage</button></Link>
+                <Link to="/admin/manage"><button>Manage</button></Link>
             </div>
             <span>{ date }</span>
             <span>{ hour } : { minute }</span>

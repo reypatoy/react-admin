@@ -14,10 +14,10 @@ function App() {
       <div className="main">
         <AuthContextProvider>
           <Routes>
-            <Route exact path='/user/*' element={<User />}/>
-            <Route exact path='/login' element={<Login/>}/>
-            <Route exact path='/register' element={<Register/>}/>
-            <Route path='/*' element={<Admin/>}/>
+            <Route exact path='/*' element={<User />}/>
+            {/* <Route exact path='/login' element={<Login/>}/>
+            <Route exact path='/register' element={<Register/>}/> */}
+            <Route path='/admin/*' element={<Admin/>}/>
           </Routes>
         </AuthContextProvider>
       </div>

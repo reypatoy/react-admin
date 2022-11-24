@@ -35,10 +35,10 @@ function Billing() {
 
     useEffect( () => {
         if(!user.isLogin){
-            navigate('/login/');
+            navigate('/login');
         }
         else if(user.type !== "Admin") {
-                    navigate('/login/');
+                    navigate('/login');
         }
     },
     []);

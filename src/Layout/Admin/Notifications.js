@@ -41,7 +41,7 @@ function Notifications() {
             });
         }
         else{
-            navigate('/login/');
+            navigate('/login');
         }
     }, []);
 
@@ -56,8 +56,7 @@ function Notifications() {
 
     const sendNotification = async () => {
         if(!isSend){
-            await createCustomerNotification(notifications, moment(selectedDate).format("MM-DD-YYYY"),
-            moment(selectedDateTo).format("MM-DD-YYYY"), notificationId)
+            await createCustomerNotification(notifications, notificationId)
             alert("Notification Saved");
             setIsSend(true);
         }
@@ -93,29 +92,11 @@ function Notifications() {
                     </textarea>
                 </div>
                 <div className="notif-date">
-                    <label>Date From : </label>
-                    <DatePicker
-                        selected={selectedDate}
-                        onChange={date => setDateFrom(date)}
-                        placeholderText={'Enter Date From'}
-                        filterDate={date => date.getDay() !== 6 && date.getDay() !== 0} // weekends cancel
-                        showYearDropdown // year show and scrolldown alos
-                        scrollableYearDropdown
-                    /> 
-                    <label>Date To: </label>
-                    <DatePicker
-                        selected={selectedDateTo}
-                        onChange={date => setDateTo(date)}
-                        placeholderText={'Enter Date To'}
-                        filterDate={date => date.getDay() !== 6 && date.getDay() !== 0} // weekends cancel
-                        showYearDropdown // year show and scrolldown alos
-                        scrollableYearDropdown
-                    />
                   <div className='check-label'>
                     <span>isSave: </span>
                     <input type={'checkbox'} readOnly checked={isSend}/>
                   </div>
-                  <button className="notifBtn-send" onClick={sendNotification}>Send</button>
+                  <button className="notifBtn-send" onClick={sendNotification}>Save</button>
                 </div>
                 <div className="manageContainer scroll-manage-container">
                     <table>

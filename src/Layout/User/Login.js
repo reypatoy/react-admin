@@ -26,20 +26,22 @@ function Login() {
         }
         try {
             const newUser = await loginUser(email, password);
-            const q = query(collection(db, "customers"), where("id", "==", newUser.user.uid));
+            const q = query(collection(db, "users"), where("id", "==", newUser.user.uid));
             const querySnapshot = getDocs(q);
             querySnapshot.then((snapshot) => {
                 let count = 0;
-                let userType = "Customer";
+                let userType = "Admin";
                 snapshot.forEach((doc) => {
                     if (doc.data().id === newUser.user.uid) {
                         dispatch(setUserState({newUser, userType}));
-                        navigate('/');
+                        navigate('/admin');
                         count++;
                     }
                 });
                 if (count === 0) {
-                    alert('User not found');
+                    let userType = "Customer";
+                    dispatch(setUserState({newUser, userType}));
+                    navigate('/');
                 }   
             });
         } catch (error) {

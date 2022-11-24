@@ -71,7 +71,7 @@ function Profile() {
                 });
             });
         }else{
-            navigate('/login/');
+            navigate('/login');
         }
     }, [])
 

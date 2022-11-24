@@ -13,10 +13,10 @@ function Approval() {
 
     useEffect( () => {
         if(!user.isLogin){
-            navigate('/login/');
+            navigate('/login');
         }
         else if(user.type !== "Admin") {
-                    navigate('/login/');
+                    navigate('/login');
         }
         if(user.isLogin && user.type === "Admin"){
             getCustomer();

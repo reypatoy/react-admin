@@ -54,7 +54,6 @@ function Profile() {
                 </div>
                 <span>{accountNumber}</span>
                 <div className="userProfileBody">
-                    <span>Account Number</span>
                     <h3>{address}</h3>
                 </div>
                 <div className="userProfileFooter">

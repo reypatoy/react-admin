@@ -27,7 +27,7 @@ function User() {
     const onLogOut = () => {
         logoutUser();
         dispatch(logOut());
-        navigate('/user/login');
+        navigate('/login');
     };
     
 
@@ -107,13 +107,13 @@ function User() {
             </div>
             <div className="mainContainer">
                     <Routes>
-                        <Route path='/user' element={<Dashboard/>}/>
-                        <Route path='/user/login' element={<Login/>}/>
-                        <Route path='/user/register' element={<Register/>}/>
-                        <Route path='/user/billing' element={<Billing/>}/>
-                        <Route path='/user/profile' element={<Profile/>}/>
-                        <Route path='/user/about' element={<About/>}/>
-                        <Route path='/user/appointment' element={<Appointment/>}/>                    
+                        <Route path='/' element={<Dashboard/>}/>
+                        <Route path='/login' element={<Login/>}/>
+                        <Route path='/register' element={<Register/>}/>
+                        <Route path='/billing' element={<Billing/>}/>
+                        <Route path='/profile' element={<Profile/>}/>
+                        <Route path='/about' element={<About/>}/>
+                        <Route path='/appointment' element={<Appointment/>}/>                    
                     </Routes>
             </div>
         </>

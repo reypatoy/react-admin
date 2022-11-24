@@ -137,12 +137,10 @@ export const AuthContextProvider = ({children}) => {
         return deleteDoc(doc(db, "appointments", appointmentId));
    } 
 
-   const createCustomerNotification = (notice, dateFrom, dateTo, id) => {
+   const createCustomerNotification = (notice, id) => {
     const notificationCollectionRef = doc(db, 'notifications', id);
         const data = {
             notice: notice,
-            dateFrom:dateFrom,
-            dateTo:dateTo,
             isSend : true,
             createdAt: serverTimestamp(),
             };

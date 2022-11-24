@@ -55,7 +55,11 @@ function Billing() {
                 <span className="billDate"> { date != null ? date : "loading"} </span>
                 <div className="billCell">
                     <h2>Current Bill: </h2>
-                    <span>{ parseInt(bill).toLocaleString() }</span>
+                    {bill ?
+                        <span>{ parseInt(bill).toLocaleString() }</span>
+                        :
+                        <span></span>
+                    }
                 </div>
                 <div className="billCell">
                     <h2>Meter Reading: </h2>
