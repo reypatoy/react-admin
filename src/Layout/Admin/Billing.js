@@ -88,7 +88,7 @@ function Billing() {
             const currentDate = new Date();
             const  dueDate = new Date(date);
             if(dueDate.getTime() < currentDate.getTime()){
-                const additional = Math.ceil(getDifferenceInDays(currentDate, dueDate)) * 20;
+                const additional = Math.ceil(getDifferenceInDays(currentDate, dueDate));
                 setPenalty(additional);
                 setTotalPayable(parseInt(bill) + parseInt(additional));
             }else{
@@ -114,6 +114,7 @@ function Billing() {
                 "penalty":penalty
                 }
               );
+              console.log(response);
             alert("Bill Paid Successfully");
             setIsFilter(false);
             setIsBillModal(false);

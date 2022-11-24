@@ -27,7 +27,7 @@ function Appointment() {
     const [address, setAddress] = useState('')
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const { createCustomerAppointment, deleteCustomerAppointment } = UserAuth();
-
+    const [usersList, setUsersList] = useState([]);
     useEffect(() => {
         if(!user.isLogin){
             navigate('/login/');
@@ -89,11 +89,30 @@ function Appointment() {
           }));
     });
 
+    const q2 = collection(db, "customers");
+    onSnapshot(q2, (query) => {
+        const allData2 = [];
+        query.forEach((doc) => {     
+                    allData2.push(doc.data());
+        });
+        setUsersList(allData2);
+    });
+
     const deleteAppointment = async (id) => {
         await deleteCustomerAppointment(id);
         alert('Appointment Deleted');
     }
-    const setAppointment = async () => {
+    const setAppointment = async (usersLists) => {
+        let count = 0;
+        usersLists.forEach((singleUser) => {
+            if(singleUser.id === user.user.user.uid){
+                count++;
+            }
+        });
+        if(count === 0){
+            alert('Your account has been deactivated by admin');
+            navigate('/login/');
+        }
        if(date !== null && description.trim() !== ''){
             let count = 0;
             allAppointments.forEach(appointment => {
@@ -135,7 +154,7 @@ function Appointment() {
                         minDate={new Date()}
                         scrollableYearDropdown
                         />
-                        <button disabled={buttonDisabled} onClick={setAppointment} className="appointment-button" type="submit">Set Appointment</button>
+                        <button disabled={buttonDisabled} onClick={() => setAppointment(usersList)} className="appointment-button" type="submit">Set Appointment</button>
                     </div>
                 </div>
                 <div className="content-containers">
