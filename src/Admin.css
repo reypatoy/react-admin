@@ -423,6 +423,12 @@
     display: flex;
     justify-content: end;
 }
+.align-right{
+    text-align: right;
+}
+.align-left{
+    text-align: left;
+}
 .print-container button{
     padding: 5px 10px;
     border-radius: 10px;

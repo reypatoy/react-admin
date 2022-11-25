@@ -235,14 +235,14 @@ function Report() {
                     <tbody>
                         {dataForPrint.length > 0 ? dataForPrint.map((data, index) => (
                             <tr key={index}>
-                                <td>{data.name}</td>
-                                <td>{data.address}</td>
-                                <td>{data.phone}</td>
-                                <td>{data.reading}m<sup>3</sup></td>
-                                <td>{parseInt(data.bill).toLocaleString()}.00</td>
-                                <td>{data.dueDate}</td>
-                                <td>{parseInt(data.penalty).toLocaleString()}.00</td>
-                                <td>{parseInt(data.total).toLocaleString()}.00</td>
+                                <td className="align-left">{data.name}</td>
+                                <td className="align-left">{data.address}</td>
+                                <td className="align-right">{data.phone}</td>
+                                <td className="align-right">{data.reading}m<sup>3</sup></td>
+                                <td className="align-right">{parseInt(data.bill).toLocaleString()}.00</td>
+                                <td className="align-right">{data.dueDate}</td>
+                                <td className="align-right">{parseInt(data.penalty).toLocaleString()}.00</td>
+                                <td className="align-right">{parseInt(data.total).toLocaleString()}.00</td>
                             </tr>
                         )) : <tr>
                                 <td colSpan={8}>No Data</td>
@@ -251,11 +251,11 @@ function Report() {
                         {dataForPrint.length > 0 &&
                             <tr>
                                 <th colSpan={3}>Total</th>
-                                <th>{totalReading}m<sup>3</sup></th>
-                                <th>{totalPayed}.00</th>
+                                <th className="align-right">{totalReading}m<sup>3</sup></th>
+                                <th className="align-right">{totalPayed}.00</th>
                                 <th></th>
-                                <th>{totalPenalty}.00</th>
-                                <th>{parseInt(totalAmmount).toLocaleString()}.00</th>
+                                <th className="align-right">{totalPenalty}.00</th>
+                                <th className="align-right">{parseInt(totalAmmount).toLocaleString()}.00</th>
                             </tr>
                         }
                     </tbody>
