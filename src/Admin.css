@@ -424,10 +424,10 @@
     justify-content: end;
 }
 .align-right{
-    text-align: right;
+    text-align: right !important;
 }
 .align-left{
-    text-align: left;
+    text-align: left !important;
 }
 .print-container button{
     padding: 5px 10px;
