@@ -94,9 +94,11 @@ function Manage() {
                         <td>{item.data().address}</td>
                         <td>{item.data().email}</td>
                         <td>{item.data().contact}</td>
-                        <td>
-                            <button onClick={() => viewMore(item.data().id, item.data().fullname)} className="view_more">view more</button>
-                            <button onClick={() => deleteUser(item.id, item.data().id)} className="view_more">delete</button>
+                        <td className="manageAction">
+                            <div>
+                                <button onClick={() => viewMore(item.data().id, item.data().fullname)} className="view_more">view more</button>
+                                <button onClick={() => deleteUser(item.id, item.data().id)} className="view_more">delete</button>
+                            </div>
                         </td>
                     </tr>
                 ))}

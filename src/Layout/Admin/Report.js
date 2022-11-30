@@ -182,7 +182,7 @@ function Report() {
                 >
                     <option>--Select Category--</option>
                     <option value="Monthly">Monthly</option>
-                    <option value="Unnually">Unnually</option>
+                    <option value="Annually">Annually</option>
                 </select>
                 {isMonthly &&
                     <select onChange={(event) => setMonthValue(event.target.value)}
@@ -251,11 +251,11 @@ function Report() {
                         {dataForPrint.length > 0 &&
                             <tr>
                                 <th colSpan={3}>Total</th>
-                                <th className="align-right">{totalReading}m<sup>3</sup></th>
-                                <th className="align-right">{totalPayed}.00</th>
+                                <th className="align-right">{parseInt(totalReading).toLocaleString()}m<sup>3</sup></th>
+                                <th className="align-right">{parseInt(totalAmmount).toLocaleString()}.00</th>
                                 <th></th>
                                 <th className="align-right">{totalPenalty}.00</th>
-                                <th className="align-right">{parseInt(totalAmmount).toLocaleString()}.00</th>
+                                <th className="align-right">{parseInt(totalPayed).toLocaleString()}.00</th>
                             </tr>
                         }
                     </tbody>

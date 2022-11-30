@@ -51,6 +51,16 @@
   align-self: center;
   border-radius: 5px 5px 0 0px;
 }
+.formItem select {
+  border: none;
+  border-bottom: 2px solid blue;
+  margin: 10px 0;
+  padding: 12px;
+  outline: none;
+  width: 100%;
+  align-self: center;
+  border-radius: 5px 5px 0 0px;
+}
 
 .loginPanel .formItem input:focus {
   background: antiquewhite;
@@ -142,16 +152,67 @@
 .customerLoginPanel a {
   align-self: center;
 }
+.termsAndPrivacy{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
+.termsAndPrivacy a{
+  text-decoration: none;
+}
+
+.termsAndPrivacy a:hover{
+  text-decoration: underline;
+}
 .customerLoginPanel a button{
   background: grey;
   width: 200px;
 }
 
 .customer-register{
-    height: 600px !important;
+    min-height: 700px !important;
     margin-bottom: 50px;
 }
 .tableBody tr{
   text-align: right;
+}
+.PolicyContainer{
+  width: 100%;
+  padding-top: 50px;
+  overflow-anchor: none;
+}
+.PolicyHeader{
+  width: 100%;
+  text-align: center;
+}
+.PolicyBody{
+  padding: 20px;
+  background-color: aliceblue;
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+}
+.PolicyBody p{
+  text-align: justify;
+}
+.PolicyFooter{
+  width: 100%;
+  text-align: center;
+  height: 100px;
+}
+.PolicyFooter{
+  width: 100%;
+  text-align: center;
+  height: 100px;
+  margin-top: 50px;
+  text-decoration: none;
+}
+.PolicyFooter span{
+  font-size: 14px;
+  color: white;
+  padding: 20px;
+  text-decoration: none;
+  border-radius: 10px;
 }

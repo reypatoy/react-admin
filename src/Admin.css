@@ -167,13 +167,14 @@
     border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
+    width: 100%;
 }
 .check-label{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-right: 10px;
+    margin-bottom: 10px;
 }
 .check-label span{
     margin-right: 10px;
@@ -186,12 +187,15 @@
     flex-direction: column;
     margin: 0 auto;
     width: 80%;
-    height: 460px;
+    height: 430px;
     border-radius: 15px;
     background: linear-gradient(#f74545 40%, rgb(0,0,0,0));
     padding: 20px;
 }
-
+.HeaderContainer{
+    display: flex;
+    padding: 0px;
+}
 .notifContainer h1 {
     font-size: 2.5rem;
     color: #ffffff;
@@ -203,22 +207,28 @@
     flex-direction: column;
     padding: 10px;
     border-radius: 10px;
+    margin-top: -20px;
     box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.3);
+    width: 95%;
 }
 .notif label{
     padding: 10px;
 }
 .notif .notifInput{
-    padding: 5px;
+    padding: 10px;
     border-radius: 10px;
+    height: 120px;
 }
 .notif-date{
     display: flex;
-    flex-direction: row;
-    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 5px;
+    width: 10%;
 }
 .notif-date label{
     width: 300px;
+    padding: 10px;
 }
 .statButtons {
     display: flex;
@@ -364,12 +374,12 @@
 }
 .title select{
     border-radius: 10px;
-    padding: 5px;
+    padding: 10px;
     cursor: pointer;
     margin-right: 20px;
 }
 .title button{
-    padding: 5px 10px;
+    padding: 15px;
     border-radius: 10px;
     cursor: pointer;
     background: #419BEE;
@@ -407,16 +417,22 @@
     padding: 20px;
     width: 100%;
 }
+
+.reports table thead{
+    background: #419BEE !important;
+}
 .reports table tr{
     border-radius: 10px;
 }
 .reports table tr td{
     text-align: center;
     border: solid #656363 1px;
+    padding: 5px;
 }
 .reports table tr th{
     text-align: center;
     border: solid #656363 1px;
+    padding: 5px;
 }
 .print-container{
     width: 100%;
@@ -429,8 +445,14 @@
 .align-left{
     text-align: left !important;
 }
+.manageAction div{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    align-items: center;
+}
 .print-container button{
-    padding: 5px 10px;
+    padding: 15px;
     border-radius: 10px;
     cursor: pointer;
     background: #419BEE;
@@ -439,12 +461,17 @@
     margin-right: 20px;
     margin-bottom: 20px;
     margin-top: 20px;
-    width: 50px;
+    width: 100px;
 }
 .print-container button:hover{
     background: #74adb7;
 }
-
+.dateContainer{
+    display: flex;
+}
+.dateContainer span {
+    margin: 0 10px;
+}
 .billContainer {
     display: flex;
     flex-direction: column;
@@ -653,11 +680,15 @@
 .manageContainer {
     display: flex;
     margin: 24px auto;
+    height: 300px;
+    width: 100%;
+    padding: 20px;
 }
 
 .manageContainer table {
     background: white;
     margin: auto;
+    width: 100%;
 }
 
 .manageContainer table thead th {
@@ -666,9 +697,12 @@
 }
 
 .manageContainer table tbody td {
-    padding: 12px 24px;
+    padding: 5px !important;
+    text-align: left;
 }
-
+.botton-cell{
+    text-align: center !important;
+}
 .manageCard {
     display: flex;
     flex-direction: column;
@@ -743,7 +777,8 @@
 }
 
 .close:hover {
-    background: #656363 !important;
+    background: red !important;
+    color: white !important;
 }
 .logOut {
     color: red !important;
@@ -781,14 +816,14 @@
     margin-right: 20px;
 }
 .view_more{
-    background: #419BEE;
+    background: red;
     color: white;
     border-radius: 10px;
     padding: 5px;
     cursor: pointer;
 }
 .view_more:hover{
-    background: #1e82e0;
+    background:#F16849;
 }
 .billFormContainer{
     display: flex;

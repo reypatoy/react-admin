@@ -8,6 +8,8 @@ import '../user.css'
 import brgyLogo from '../brgyLogo.png';
 import Login from "../Layout/User/Login";
 import Register from "../Layout/User/Register";
+import TermsConditions from "../Layout/User/TermsConditions";
+import PrivacyPolicy from "../Layout/User/PrivacyPolicy";
 
 import { logOut } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
@@ -108,6 +110,8 @@ function User() {
             <div className="mainContainer">
                     <Routes>
                         <Route path='/' element={<Dashboard/>}/>
+                        <Route path='/terms-and-conditions' element={<TermsConditions/>}/>
+                        <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
                         <Route path='/login' element={<Login/>}/>
                         <Route path='/register' element={<Register/>}/>
                         <Route path='/billing' element={<Billing/>}/>

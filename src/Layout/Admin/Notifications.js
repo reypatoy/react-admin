@@ -85,23 +85,25 @@ function Notifications() {
         <div className="adminContainer">
             <div className="notifContainer">
                 <h1>Notice of Water Interruption</h1>
-                <div className="notif">
-                    <label>Notice: </label>
-                    <textarea className="notifInput" placeholder="Enter notice here" 
-                                value={notifications} onChange={(e) => setNotice(e.target.value)}> 
-                    </textarea>
-                </div>
-                <div className="notif-date">
-                  <div className='check-label'>
-                    <span>isSave: </span>
-                    <input type={'checkbox'} readOnly checked={isSend}/>
-                  </div>
-                  <button className="notifBtn-send" onClick={sendNotification}>Save</button>
+                <div className='HeaderContainer'>
+                    <div className="notif">
+                        <label>Notice: </label>
+                        <textarea className="notifInput" placeholder="Enter notice here" 
+                                    value={notifications} onChange={(e) => setNotice(e.target.value)}> 
+                        </textarea>
+                    </div>
+                    <div className="notif-date">
+                        <div className='check-label'>
+                            <span>Save: </span>
+                            <input type={'checkbox'} readOnly checked={isSend}/>
+                        </div>
+                        <button className="notifBtn-send" onClick={sendNotification}>Save</button>
+                    </div>
                 </div>
                 <div className="manageContainer scroll-manage-container">
                     <table>
                         <thead>
-                            <tr>
+                            <tr className='table-head'>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Purok</th>
@@ -118,7 +120,7 @@ function Notifications() {
                                 <td>{item.data().address}</td>
                                 <td>{item.data().email}</td>
                                 <td>{item.data().contact}</td>
-                                <td>
+                                <td className='botton-cell'>
                                     <button onClick={() => send(item.data().contact, item.data().fullname)} className="view_more">Send</button>
                                 </td>
                             </tr>

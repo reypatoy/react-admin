@@ -6,31 +6,36 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { UserAuth } from "../../context/authContext";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import moment from 'moment';
 
 function Admins() {
 
     const [paid, setPaid] = useState(0);
     const [penalties, setPenalties] = useState(0);
     const [overdue, setOverdue] = useState(0);
-
-    const [date, setDate] = useState(0);
-    const [hour, setHour] = useState(0);
-    const [minute, setMinute] = useState(0);
     const [allAppointments, setAllAppointments] = useState([]);
     const [personalAppointments, setPersonalAppointments] = useState([]);
     const user = useSelector(state => state.user);
     const navigate = useNavigate();
     const { setDoneCustomerAppointment } = UserAuth();
+    const currentDate = moment(new Date()).format("MM-DD-YYYY");
+    let hour = new Date().getHours();
+    let minute = new Date().getMinutes();
+    let seconds = new Date().getSeconds() < 10 ? `0${new Date().getSeconds()}` : new Date().getSeconds();
 
+    const getHour = () => {
+        hour =  new Date().getHours()
+    }
 
-
-    
-    setInterval(() =>{
-        const d = new Date();
-        setDate(d.toDateString())
-        setHour(d.getHours())
-        setMinute(d.getMinutes())
-    }, 60000)
+    const getMinutes = () => {
+        minute = new Date().getMinutes();
+    }
+    const getSeconds = () => {
+        seconds = new Date().getSeconds() < 10 ? `0${new Date().getSeconds()}` : new Date().getSeconds();
+    }
+    setInterval(getSeconds, 1000);
+    setInterval(getMinutes, 60000);
+    setInterval(getHour, 36000000)
 
 
     useEffect(() => {
@@ -73,8 +78,9 @@ function Admins() {
                 <h2>Dashboard</h2> 
                 <Link to="/admin/manage"><button>Manage</button></Link>
             </div>
-            <span>{ date }</span>
-            <span>{ hour } : { minute }</span>
+           <div className="dateContainer">
+                <span>{ currentDate }</span> <span>{ hour }:{ minute }:{ seconds }</span>
+           </div>
             
             <div className="admin-Dashboard">
                 <div className="dashboardLeft">
